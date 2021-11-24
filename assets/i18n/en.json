@@ -8,5 +8,10 @@
   "smaller": "Smaller",
   "congratulations": "Congratulations",
   "game_over": "Game Over",
-  "replay": "Replay"
+  "replay": "Replay",
+  "settings": "Settings",
+  "dark_mode": "Dark mode",
+  "language": "Language",
+  "english": "English",
+  "french": "French"
 }

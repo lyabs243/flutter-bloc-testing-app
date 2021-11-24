@@ -1,69 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_structure/presentation/router/app_router.dart';
 import 'presentation/languages/localizations.dart';
 import 'presentation/screens/home/home.dart';
 import 'constants/constants.dart';
 import 'presentation/styles/styles.dart';
 
 void main() {
-  String langCode = LANG_CODE;
 
-  runApp(MaterialApp(
-    localizationsDelegates: [
-      MyLocalizationsDelegate(),
-      GlobalMaterialLocalizations.delegate,
-      GlobalWidgetsLocalizations.delegate
-    ],
-    onGenerateTitle: (BuildContext context) =>
-    MyLocalizations.of(context)?.localization['app_title'],
-    locale: Locale(langCode),
-    supportedLocales: [Locale('en')],
-    debugShowCheckedModeBanner: false,
-    theme: lightTheme,
-    home: MyApp(),
-  ));
+  runApp(MyApp(appRouter: AppRouter(),));
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
 
-  @override
-  State<StatefulWidget> createState() {
-    return _MyAppState();
-  }
+  final AppRouter appRouter;
 
-}
-
-class _MyAppState extends State<MyApp> {
-
-  String langCode = LANG_CODE;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  Future initApp() async {
-
-  }
+  const MyApp({Key? key, required this.appRouter,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
 
-    return FutureBuilder(
-      // Initialize FlutterFire:
-      future: initApp(),
-      builder: (context, snapshot) {
+    String langCode = LANG_CODE;
 
-        if (snapshot.connectionState == ConnectionState.done) {
-          return HomePage();
-        }
-
-        return Scaffold(
-          body: Center(
-            child: CircularProgressIndicator(),
-          ),
-        );
-      },
+    return MaterialApp(
+      localizationsDelegates: [
+        MyLocalizationsDelegate(),
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate
+      ],
+      onGenerateTitle: (BuildContext context) => MyLocalizations.of(context)?.localization['app_title'],
+      locale: Locale(langCode),
+      supportedLocales: [Locale('en')],
+      debugShowCheckedModeBanner: false,
+      theme: lightTheme,
+      onGenerateRoute: appRouter.onGenerateRoute,
     );
   }
 }
