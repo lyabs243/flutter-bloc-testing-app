@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_structure/presentation/components/edit_text.dart';
 import 'package:flutter_structure/presentation/screens/home/components/app_button.dart';
+import 'package:flutter_structure/presentation/screens/home/components/weather_error_widget.dart';
 import 'package:flutter_structure/presentation/screens/home/components/weather_widget.dart';
 import '../../languages/localizations.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -18,7 +19,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  bool isLoadingWeather = false, isLoadingGame = false;
+  bool isLoadingWeather = false, isLoadingGame = false, isWeatherError = true;
   TextEditingController numberEditingController = TextEditingController();
 
   @override
@@ -99,7 +100,15 @@ class _HomePageState extends State<HomePage> {
                     Center(
                       child: CircularProgressIndicator(),
                     ):
-                    WeatherWidget(),
+                    (
+                      (isWeatherError)?
+                      WeatherErrorWidget(
+                        () {
+
+                        }
+                      ):
+                      WeatherWidget()
+                    ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.08,),
                     (isLoadingGame)?
                     Expanded(
