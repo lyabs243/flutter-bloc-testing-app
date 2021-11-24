@@ -19,7 +19,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  bool isLoadingWeather = false, isLoadingGame = false, isWeatherError = true;
+  bool isLoadingWeather = false, isLoadingGame = false, isWeatherError = false, displayGameMessage = true;
   TextEditingController numberEditingController = TextEditingController();
 
   @override
@@ -142,9 +142,23 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           SizedBox(height: 10,),
-                          Text(
-                            MyLocalizations.instanceLocalization['what_is_hidden_number'],
-                            textScaleFactor: 2,
+                          Container(
+                            child: (displayGameMessage)?
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(FontAwesome.up_circled, color: Theme.of(context).primaryColor, size: 30,),
+                                SizedBox(width: 5,),
+                                Text(MyLocalizations.instanceLocalization['greater'], textScaleFactor: 2,)
+                              ],
+                            ):
+                            Text(
+                              MyLocalizations.instanceLocalization['what_is_hidden_number'],
+                              textScaleFactor: 2,
+                              textAlign: TextAlign.center,
+                            ),
+                            alignment: Alignment.center,
+                            width: MediaQuery.of(context).size.width * 0.6,
                           ),
                           SizedBox(height: 10,),
                           SizedBox(

@@ -3,5 +3,7 @@
   "what_is_hidden_number": "What is the hidden number?",
   "ok": "OK",
   "failed_get_weather": "Failed to get weather",
-  "try_again": "Try again"
+  "try_again": "Try again",
+  "greater": "Greater",
+  "smaller": "Smaller"
 }
