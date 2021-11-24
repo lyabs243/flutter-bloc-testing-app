@@ -5,5 +5,8 @@
   "failed_get_weather": "Failed to get weather",
   "try_again": "Try again",
   "greater": "Greater",
-  "smaller": "Smaller"
+  "smaller": "Smaller",
+  "congratulations": "Congratulations",
+  "game_over": "Game Over",
+  "replay": "Replay"
 }

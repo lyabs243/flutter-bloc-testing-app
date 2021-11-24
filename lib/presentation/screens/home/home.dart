@@ -7,6 +7,7 @@ import 'package:flutter_structure/presentation/screens/home/components/weather_w
 import '../../languages/localizations.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
+import 'package:fluttericon/font_awesome5_icons.dart';
 
 class HomePage extends StatefulWidget {
 
@@ -19,7 +20,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  bool isLoadingWeather = false, isLoadingGame = false, isWeatherError = false, displayGameMessage = true;
+  bool isLoadingWeather = false, isLoadingGame = false, isWeatherError = false, displayGameMessage = true, isGameFinished = true;
   TextEditingController numberEditingController = TextEditingController();
 
   @override
@@ -143,7 +144,22 @@ class _HomePageState extends State<HomePage> {
                           ),
                           SizedBox(height: 10,),
                           Container(
-                            child: (displayGameMessage)?
+                            child: (isGameFinished)?
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(FontAwesome5.hand_peace, color: Theme.of(context).primaryColor, size: 30,),
+                                SizedBox(width: 5,),
+                                Text(
+                                  MyLocalizations.instanceLocalization['congratulations'],
+                                  textScaleFactor: 2,
+                                  style: TextStyle(
+                                    color: Theme.of(context).primaryColor
+                                  ),
+                                )
+                              ],
+                            ):
+                            ((displayGameMessage)?
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -156,7 +172,7 @@ class _HomePageState extends State<HomePage> {
                               MyLocalizations.instanceLocalization['what_is_hidden_number'],
                               textScaleFactor: 2,
                               textAlign: TextAlign.center,
-                            ),
+                            )),
                             alignment: Alignment.center,
                             width: MediaQuery.of(context).size.width * 0.6,
                           ),
