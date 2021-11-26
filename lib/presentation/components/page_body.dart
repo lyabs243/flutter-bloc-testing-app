@@ -22,7 +22,7 @@ class PageBody extends StatelessWidget {
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.all(12),
-          color: Color(0xFFE7EFF6),
+          color: Theme.of(context).scaffoldBackgroundColor,
           height: MediaQuery.of(context).size.height - appBar.preferredSize.height - 24,
           width: MediaQuery.of(context).size.width,
           child: this.child,

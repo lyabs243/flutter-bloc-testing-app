@@ -9,5 +9,6 @@ final darkTheme = ThemeData(
 final lightTheme = ThemeData(
     primarySwatch: Colors.purple,
     primaryColor: Color(0XFF9F39F5),
-    brightness: Brightness.light
+    brightness: Brightness.light,
+    scaffoldBackgroundColor: Color(0xFFE7EFF6)
 );
