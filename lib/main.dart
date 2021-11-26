@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_structure/constants/enums.dart';
 import 'package:flutter_structure/logic/cubits/time_cubit.dart';
+import 'package:flutter_structure/logic/cubits/weather_cubit.dart';
+import 'package:flutter_structure/logic/states/weather_state.dart';
 import 'package:flutter_structure/presentation/router/app_router.dart';
 import 'presentation/languages/localizations.dart';
 import 'presentation/screens/home/home.dart';
@@ -27,7 +30,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<TimeCubit>(
           create: (context) => TimeCubit(),
-        )
+        ),
       ],
       child: MaterialApp(
         localizationsDelegates: [

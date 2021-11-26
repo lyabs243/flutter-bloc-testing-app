@@ -28,6 +28,8 @@ dependencies:
   flutter_rating_bar: ^4.0.0
   fluttericon: ^2.0.0
   flutter_bloc: ^8.0.0
+  geolocator: ^7.7.1
+  geocoding: ^2.0.1
 
 
   # The following adds the Cupertino Icons font to your application.

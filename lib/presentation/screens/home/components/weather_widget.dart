@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 
 class WeatherWidget extends StatelessWidget {
 
+  String city;
+
+  WeatherWidget(this.city);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,7 +34,7 @@ class WeatherWidget extends StatelessWidget {
             ),
           ),
           Text(
-            'LUBUMBASHI',
+            '$city',
             maxLines: 2,
             textAlign: TextAlign.center,
             textScaleFactor: 1.5,

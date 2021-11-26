@@ -13,5 +13,6 @@
   "dark_mode": "Dark mode",
   "language": "Language",
   "english": "English",
-  "french": "French"
+  "french": "French",
+  "need_localization_message": "This app need your localization to provide you the weather."
 }
