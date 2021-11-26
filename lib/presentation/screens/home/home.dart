@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_structure/constants/constants.dart';
+import 'package:flutter_structure/logic/cubits/time_cubit.dart';
+import 'package:flutter_structure/logic/states/time_state.dart';
 import 'package:flutter_structure/presentation/components/edit_text.dart';
 import 'package:flutter_structure/presentation/components/page_body.dart';
 import 'package:flutter_structure/presentation/screens/home/components/app_button.dart';
@@ -10,6 +12,7 @@ import '../../languages/localizations.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatefulWidget {
 
@@ -72,12 +75,16 @@ class _HomePageState extends State<HomePage> {
                 ),
                 visible: !isLoadingGame,
               ),
-              Text(
-                '10:06:34',
-                textScaleFactor: 1.5,
-                style: TextStyle(
-                    fontWeight: FontWeight.bold
-                ),
+              BlocBuilder<TimeCubit, TimeState>(
+                builder: (context, state) {
+                  return Text(
+                    '${state.formatTime()}',
+                    textScaleFactor: 1.5,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold
+                    ),
+                  );
+                }
               )
             ],
           ),
