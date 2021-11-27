@@ -5,6 +5,7 @@ import 'package:flutter_structure/logic/cubits/time_cubit.dart';
 import 'package:flutter_structure/logic/cubits/weather_cubit.dart';
 import 'package:flutter_structure/logic/states/weather_state.dart';
 import 'package:flutter_structure/presentation/router/app_router.dart';
+import 'logic/cubits/game_cubit.dart';
 import 'presentation/languages/localizations.dart';
 import 'presentation/screens/home/home.dart';
 import 'constants/constants.dart';
@@ -30,6 +31,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<TimeCubit>(
           create: (context) => TimeCubit(),
+        ),
+        BlocProvider<GameCubit>(
+          create: (context) => GameCubit(),
         ),
       ],
       child: MaterialApp(

@@ -2,6 +2,9 @@ const LANG_CODE = 'en';
 
 List<String> languages = ['en'];
 
+const MIN_GAME_NUMBER = 1;
+const MAX_GAME_NUMBER = 500;
+
 /*** Pages routes ***/
 const PAGE_SETTINGS = '/settings';
 const PAGE_HOME = '/';
