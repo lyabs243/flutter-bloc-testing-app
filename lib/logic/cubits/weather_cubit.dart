@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_structure/constants/enums.dart';
+import 'package:flutter_structure/data/models/weather_item.dart';
+import 'package:flutter_structure/data/repositories/weather_repository.dart';
 import 'package:flutter_structure/logic/states/weather_state.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
@@ -18,21 +20,39 @@ class WeatherCubit extends Cubit<WeatherState> {
   getWeather() async {
     emit(WeatherState(customState: CustomState.loading));
 
-    String? city = await _getCity();
+    String? city;
+    Position? position;
+
+    try {
+      position = await getCurrentLocation(context);
+      city = await _getCity(position);
+    }
+    catch(e) {
+      print('===Error get weather from cubit: $e');
+    }
+
     if (city == null) {
       emit(WeatherState(customState: CustomState.error));
     }
     else {
-      WeatherState weatherState = WeatherState(customState: CustomState.done);
-      weatherState.city = city;
-      emit(weatherState);
+
+      WeatherRepository weatherRepository = WeatherRepository(city, position!.latitude, position.longitude);
+      WeatherItem? weatherItem = await weatherRepository.getFromLocation();
+
+      if (weatherItem == null) {
+        emit(WeatherState(customState: CustomState.error));
+      }
+      else {
+        WeatherState weatherState = WeatherState(customState: CustomState.done);
+        weatherState.weatherItem = weatherItem;
+        emit(weatherState);
+      }
     }
   }
 
-  Future<String?> _getCity() async {
+  Future<String?> _getCity(Position position) async {
     String? city;
     try {
-      Position position = await getCurrentLocation(context);
       List<Placemark>? placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
       if (placemarks.length > 0) {
         city = placemarks.first.locality;

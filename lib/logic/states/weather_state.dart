@@ -1,9 +1,10 @@
 import 'package:flutter_structure/constants/enums.dart';
+import 'package:flutter_structure/data/models/weather_item.dart';
 
 class WeatherState {
 
   CustomState customState;
-  String? city;
+  WeatherItem? weatherItem;
 
   WeatherState({required this.customState});
 

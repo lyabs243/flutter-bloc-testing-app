@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_structure/data/models/weather_item.dart';
 
 class WeatherWidget extends StatelessWidget {
 
-  String city;
+  WeatherItem? weatherItem;
 
-  WeatherWidget(this.city);
+  WeatherWidget(this.weatherItem);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class WeatherWidget extends StatelessWidget {
             decoration: BoxDecoration(
                 image: DecorationImage(
                     image: NetworkImage(
-                      'http://openweathermap.org/img/wn/09d.png',
+                      weatherItem!.icon,
                     ),
                     fit: BoxFit.fitHeight
                 )
@@ -25,7 +26,7 @@ class WeatherWidget extends StatelessWidget {
           ),
           Container(
             child: Text(
-              '10ºC',
+              '${weatherItem!.temperatureCelcius.toStringAsFixed(0)}ºC',
               maxLines: 1,
               textScaleFactor: 3,
               style: TextStyle(
@@ -34,7 +35,7 @@ class WeatherWidget extends StatelessWidget {
             ),
           ),
           Text(
-            '$city',
+            '${weatherItem!.city}',
             maxLines: 2,
             textAlign: TextAlign.center,
             textScaleFactor: 1.5,

@@ -115,7 +115,7 @@ class _HomePageState extends State<HomePage> {
                           );
                         }
 
-                        return WeatherWidget(state.city.toString());
+                        return WeatherWidget(state.weatherItem);
 
                       }
                   ),
