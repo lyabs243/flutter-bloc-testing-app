@@ -15,5 +15,7 @@ const FIELD_TEMPERATURE_CELCIUS = 'temperature_celcius';
 const FIELD_CITY = 'city';
 const FIELD_ICON = 'icon';
 
+const FIELD_IS_DARK_MODE = 'is_dark_mode';
+
 /*** keys ***/
 const OPEN_WEATHER_API_KEY = 'c1f16b830a85be3b527ac4b41803fda9';
