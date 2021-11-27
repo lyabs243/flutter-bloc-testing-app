@@ -63,30 +63,35 @@ class _HomePageState extends State<HomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Visibility(
-                  child: Container(
-                    child: RatingBar(
-                      initialRating: 4,
-                      direction: Axis.horizontal,
-                      allowHalfRating: false,
-                      itemCount: 5,
-                      ratingWidget: RatingWidget(
-                        full: Transform.scale(
-                          scale: 0.7,
-                          child: Icon(FontAwesome.heart, color: Colors.red,),
-                        ),
-                        half: Icon(FontAwesome.heartbeat, color: Colors.red,),
-                        empty: Transform.scale(
-                          scale: 0.7,
-                          child: Icon(FontAwesome.heart, color: Colors.grey,),
+                BlocBuilder<GameCubit, GameState>(
+                  builder: (context, state) {
+                    return Visibility(
+                      child: Container(
+                        child: RatingBar(
+                          initialRating: state.lives.toDouble(),
+                          direction: Axis.horizontal,
+                          allowHalfRating: false,
+                          ignoreGestures: true,
+                          itemCount: TOTAL_LIVES,
+                          ratingWidget: RatingWidget(
+                            full: Transform.scale(
+                              scale: 0.7,
+                              child: Icon(FontAwesome.heart, color: Colors.red,),
+                            ),
+                            half: Icon(FontAwesome.heartbeat, color: Colors.red,),
+                            empty: Transform.scale(
+                              scale: 0.7,
+                              child: Icon(FontAwesome.heart, color: Colors.grey,),
+                            ),
+                          ),
+                          onRatingUpdate: (rating) {
+
+                          },
                         ),
                       ),
-                      onRatingUpdate: (rating) {
-
-                      },
-                    ),
-                  ),
-                  visible: ! (context.read<GameCubit>().state.gameStatus == GameStatus.loading),
+                      visible: ! (state.gameStatus == GameStatus.loading),
+                    );
+                  }
                 ),
                 BlocBuilder<TimeCubit, TimeState>(
                     builder: (context, state) {
@@ -138,17 +143,38 @@ class _HomePageState extends State<HomePage> {
                       return Container(
                         child: Column(
                           children: [
-                            GameCircleWidget('?'),
+                            GameCircleWidget(
+                              (! (context.read<GameCubit>().state.gameStatus == GameStatus.success || context.read<GameCubit>().state.gameStatus == GameStatus.failed))?
+                              '?':
+                              '${context.read<GameCubit>().state.hiddenNumber}'
+                            ),
                             SizedBox(height: 10,),
                             Container(
                               child: LayoutBuilder(
                                 builder: (context, constraints) {
 
                                   if (state.gameStatus == GameStatus.failed || state.gameStatus == GameStatus.success) {
-                                    return GameStatusMessage(FontAwesome5.hand_peace, MyLocalizations.instanceLocalization['congratulations'], textColor: Theme.of(context).primaryColor,);
+
+                                    String message = MyLocalizations.instanceLocalization['congratulations'];
+                                    IconData iconData = FontAwesome5.hand_peace;
+                                    if (state.gameStatus == GameStatus.failed) {
+                                      message = MyLocalizations.instanceLocalization['game_over'];
+                                      iconData = FontAwesome5.sad_cry;
+                                    }
+
+                                    return GameStatusMessage(iconData, message, textColor: Theme.of(context).primaryColor,);
                                   }
                                   else if (state.gameStatus == GameStatus.greater || state.gameStatus == GameStatus.smaller) {
-                                    return GameStatusMessage(FontAwesome.up_circled, MyLocalizations.instanceLocalization['greater']);
+
+                                    IconData iconData = FontAwesome.up_circled;
+                                    String message = MyLocalizations.instanceLocalization['greater'];
+
+                                    if (state.gameStatus == GameStatus.smaller) {
+                                      iconData = FontAwesome.down_circled;
+                                      message = MyLocalizations.instanceLocalization['smaller'];
+                                    }
+
+                                    return GameStatusMessage(iconData, message);
                                   }
 
                                   return Text(
@@ -193,17 +219,30 @@ class _HomePageState extends State<HomePage> {
             Container(
               height: 10,
             ),
-            Visibility(
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width * 0.3,
-                child: ButtonApp(
-                    MyLocalizations.instanceLocalization['ok'],
-                        () {
-
-                    }
-                ),
-              ),
-              visible: ! (context.read<GameCubit>().state.gameStatus == GameStatus.loading),
+            BlocBuilder<GameCubit, GameState>(
+              builder: (context, state) {
+                return Visibility(
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.3,
+                    child: ButtonApp(
+                        (! (state.gameStatus == GameStatus.success || state.gameStatus == GameStatus.failed))?
+                        MyLocalizations.instanceLocalization['ok']:
+                        MyLocalizations.instanceLocalization['replay'],
+                            () {
+                          if (! (state.gameStatus == GameStatus.success || state.gameStatus == GameStatus.failed)) {
+                            context.read<GameCubit>().checkNumber(numberEditingController.text);
+                          }
+                          else {
+                            numberEditingController.clear();
+                            context.read<WeatherCubit>().getWeather();
+                            context.read<GameCubit>().initHiddenNumber();
+                          }
+                        }
+                    ),
+                  ),
+                  visible: ! (state.gameStatus == GameStatus.loading),
+                );
+              }
             )
           ],
         ),

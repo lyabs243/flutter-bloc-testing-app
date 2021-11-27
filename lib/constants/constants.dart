@@ -3,7 +3,8 @@ const LANG_CODE = 'en';
 List<String> languages = ['en'];
 
 const MIN_GAME_NUMBER = 1;
-const MAX_GAME_NUMBER = 500;
+const MAX_GAME_NUMBER = 50;
+const TOTAL_LIVES = 5;
 
 /*** Pages routes ***/
 const PAGE_SETTINGS = '/settings';
