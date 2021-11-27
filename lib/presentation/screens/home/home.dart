@@ -11,6 +11,9 @@ import 'package:flutter_structure/logic/states/weather_state.dart';
 import 'package:flutter_structure/presentation/components/edit_text.dart';
 import 'package:flutter_structure/presentation/components/page_body.dart';
 import 'package:flutter_structure/presentation/screens/home/components/app_button.dart';
+import 'package:flutter_structure/presentation/screens/home/components/game_circle_widget.dart';
+import 'package:flutter_structure/presentation/screens/home/components/game_status_message.dart';
+import 'package:flutter_structure/presentation/screens/home/components/game_loading.dart';
 import 'package:flutter_structure/presentation/screens/home/components/weather_error_widget.dart';
 import 'package:flutter_structure/presentation/screens/home/components/weather_widget.dart';
 import '../../languages/localizations.dart';
@@ -129,68 +132,23 @@ class _HomePageState extends State<HomePage> {
                     builder: (context, state) {
 
                       if (state.gameStatus == GameStatus.loading) {
-                        return Expanded(
-                          child: Container(
-                            alignment: Alignment.center,
-                            child: Transform.scale(
-                              child: CircularProgressIndicator(),
-                              scale: 2,
-                            ),
-                          )
-                        );
+                        return GameLoading();
                       }
 
                       return Container(
                         child: Column(
                           children: [
-                            Container(
-                              width: MediaQuery.of(context).size.width * 0.2,
-                              height: MediaQuery.of(context).size.width * 0.2,
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Theme.of(context).primaryColor
-                              ),
-                              child: Center(
-                                child: Text(
-                                  '?',
-                                  textScaleFactor: 5,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold
-                                  ),
-                                ),
-                              ),
-                            ),
+                            GameCircleWidget('?'),
                             SizedBox(height: 10,),
                             Container(
                               child: LayoutBuilder(
                                 builder: (context, constraints) {
 
                                   if (state.gameStatus == GameStatus.failed || state.gameStatus == GameStatus.success) {
-                                    return Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Icon(FontAwesome5.hand_peace, color: Theme.of(context).primaryColor, size: 30,),
-                                        SizedBox(width: 5,),
-                                        Text(
-                                          MyLocalizations.instanceLocalization['congratulations'],
-                                          textScaleFactor: 2,
-                                          style: TextStyle(
-                                              color: Theme.of(context).primaryColor
-                                          ),
-                                        )
-                                      ],
-                                    );
+                                    return GameStatusMessage(FontAwesome5.hand_peace, MyLocalizations.instanceLocalization['congratulations'], textColor: Theme.of(context).primaryColor,);
                                   }
                                   else if (state.gameStatus == GameStatus.greater || state.gameStatus == GameStatus.smaller) {
-                                    return Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Icon(FontAwesome.up_circled, color: Theme.of(context).primaryColor, size: 30,),
-                                        SizedBox(width: 5,),
-                                        Text(MyLocalizations.instanceLocalization['greater'], textScaleFactor: 2,)
-                                      ],
-                                    );
+                                    return GameStatusMessage(FontAwesome.up_circled, MyLocalizations.instanceLocalization['greater']);
                                   }
 
                                   return Text(
