@@ -36,8 +36,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    String langCode = LANG_CODE;
-
     return MultiBlocProvider(
       providers: [
         BlocProvider<SettingsCubit>(
@@ -59,8 +57,8 @@ class MyApp extends StatelessWidget {
               GlobalWidgetsLocalizations.delegate
             ],
             onGenerateTitle: (BuildContext context) => MyLocalizations.of(context)?.localization['app_title'],
-            locale: Locale(langCode),
-            supportedLocales: [Locale('en')],
+            locale: Locale(state.language),
+            supportedLocales: languages.toList().map((code) => Locale(code)),
             debugShowCheckedModeBanner: false,
             theme: (state.isDarkMode)? darkTheme: lightTheme,
             onGenerateRoute: appRouter.onGenerateRoute,

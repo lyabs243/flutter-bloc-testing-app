@@ -17,8 +17,6 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
 
-  String selectedLangCode = 'en';
-
   @override
   Widget build(BuildContext context) {
 
@@ -59,7 +57,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         FontAwesome5.language
                     ),
                     title: Text(
-                        MyLocalizations.instanceLocalization['language']
+                        MyLocalizations.of(context)!.localization['language']
                     ),
                     trailing: DropdownButton<String>(
                         items: List.generate(
@@ -69,11 +67,10 @@ class _SettingsPageState extends State<SettingsPage> {
                               value: languages[index]['code'],
                             )
                         ),
-                        value: selectedLangCode,
+                        value: state.language,
                         onChanged: (lang) {
-                          setState(() {
-                            selectedLangCode = lang.toString();
-                          });
+                          MyLocalizationsDelegate().load(Locale(lang.toString()));
+                          context.read<SettingsCubit>().setLanguage(lang.toString());
                         }
                     ),
                   )

@@ -7,7 +7,11 @@ class SettingsCubit extends Cubit<SettingsState> with HydratedMixin {
   SettingsCubit() : super(SettingsState());
 
   setDarkMode(bool _isDark) {
-    emit(SettingsState(isDarkMode: _isDark));
+    emit(SettingsState(isDarkMode: _isDark, language: state.language));
+  }
+
+  setLanguage(String _language) {
+    emit(SettingsState(isDarkMode: state.isDarkMode, language: _language));
   }
 
   @override
