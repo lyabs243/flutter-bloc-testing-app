@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import '../presentation/languages/localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Future<Position> getCurrentLocation(BuildContext context) async {
   bool serviceEnabled;
@@ -23,7 +23,7 @@ Future<Position> getCurrentLocation(BuildContext context) async {
         context: context,
         builder: (context) {
           return AlertDialog(
-            content: Text(MyLocalizations.instanceLocalization['need_localization_message']),
+            content: Text(AppLocalizations.of(context)!.needLocalizationMessage),
             actions: [
               TextButton(
                   onPressed: () => Navigator.of(context).pop(),

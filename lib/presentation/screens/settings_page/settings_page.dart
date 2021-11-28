@@ -3,8 +3,8 @@ import 'package:flutter_structure/logic/cubits/settings_cubit.dart';
 import 'package:flutter_structure/logic/states/settings_state.dart';
 import 'package:flutter_structure/presentation/components/page_body.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
-import '../../languages/localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingsPage extends StatefulWidget {
 
@@ -21,14 +21,14 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
 
     List<Map<String, String>> languages = [
-      {'code': 'en', 'title': MyLocalizations.instanceLocalization['english'].toString()},
-      {'code': 'fr', 'title': MyLocalizations.instanceLocalization['french'].toString()},
+      {'code': 'en', 'title': AppLocalizations.of(context)!.english},
+      {'code': 'fr', 'title': AppLocalizations.of(context)!.french},
     ];
 
     return BlocBuilder<SettingsCubit, SettingsState>(
       builder: (context, state) {
         return PageBody(
-            title: MyLocalizations.instanceLocalization['settings'],
+            title: AppLocalizations.of(context)!.settings,
             child: Container(
               child: Column(
                 children: [
@@ -38,7 +38,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                     title: InkWell(
                       child: Text(
-                          MyLocalizations.instanceLocalization['dark_mode']
+                          AppLocalizations.of(context)!.darkMode
                       ),
                       onTap: () {
                         context.read<SettingsCubit>().setDarkMode(! state.isDarkMode);
@@ -57,7 +57,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         FontAwesome5.language
                     ),
                     title: Text(
-                        MyLocalizations.of(context)!.localization['language']
+                        AppLocalizations.of(context)!.language
                     ),
                     trailing: DropdownButton<String>(
                         items: List.generate(
@@ -69,7 +69,6 @@ class _SettingsPageState extends State<SettingsPage> {
                         ),
                         value: state.language,
                         onChanged: (lang) {
-                          MyLocalizationsDelegate().load(Locale(lang.toString()));
                           context.read<SettingsCubit>().setLanguage(lang.toString());
                         }
                     ),

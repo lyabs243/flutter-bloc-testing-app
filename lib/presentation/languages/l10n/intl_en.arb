@@ -1,0 +1,38 @@
+{
+  "@@locale": "en",
+  "appTitle": "ML Game @{author}",
+  "@appTitle": {
+    "placeholders": {
+      "author": {
+        "type": "String"
+      }
+    }
+  },
+  "whatIsHiddenNumber": "What is the hidden number?",
+  "ok": "OK",
+  "failedGetWeather": "Failed to get weather",
+  "tryAgain": "Try again",
+  "greater": "Greater",
+  "smaller": "Smaller",
+  "congratulations": "Congratulations",
+  "gameOver": "Game Over",
+  "replay": "Replay",
+  "settings": "Settings",
+  "darkMode": "Dark mode",
+  "language": "Language",
+  "english": "English",
+  "french": "French",
+  "needLocalizationMessage": "This app need your localization to provide you the weather.",
+  "time": "{hour}",
+  "@time": {
+    "placeholders": {
+      "hour": {
+        "type": "DateTime",
+        "format": "h:mm:ss a",
+        "example": "4:12:33 PM",
+        "isCustomDateFormat": "true"
+      }
+    }
+  },
+  "time_format": "h:mm:ss a"
+}

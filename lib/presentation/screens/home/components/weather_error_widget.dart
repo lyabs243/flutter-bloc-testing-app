@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_structure/presentation/languages/localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WeatherErrorWidget extends StatelessWidget {
 
@@ -25,7 +25,7 @@ class WeatherErrorWidget extends StatelessWidget {
           ),
           Container(
             child: Text(
-              MyLocalizations.instanceLocalization['failed_get_weather'],
+                AppLocalizations.of(context)!.failedGetWeather,
             ),
             alignment: Alignment.center,
             width: MediaQuery.of(context).size.width * 0.4,
@@ -35,7 +35,7 @@ class WeatherErrorWidget extends StatelessWidget {
               this.onTryAgain();
             },
             child: Text(
-              MyLocalizations.instanceLocalization['try_again'],
+              AppLocalizations.of(context)!.tryAgain,
               style: TextStyle(
                 color: Theme.of(context).primaryColor
               ),

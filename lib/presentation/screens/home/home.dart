@@ -16,11 +16,12 @@ import 'package:flutter_structure/presentation/screens/home/components/game_stat
 import 'package:flutter_structure/presentation/screens/home/components/game_loading.dart';
 import 'package:flutter_structure/presentation/screens/home/components/weather_error_widget.dart';
 import 'package:flutter_structure/presentation/screens/home/components/weather_widget.dart';
-import '../../languages/localizations.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:intl/intl.dart';
 
 class HomePage extends StatefulWidget {
 
@@ -45,7 +46,7 @@ class _HomePageState extends State<HomePage> {
         ),
       ],
       child: PageBody(
-        title: MyLocalizations.instanceLocalization['app_title'],
+        title: AppLocalizations.of(context)!.appTitle('lyabs243'),
         actions: [
           IconButton(
               onPressed: () {
@@ -96,7 +97,7 @@ class _HomePageState extends State<HomePage> {
                 BlocBuilder<TimeCubit, TimeState>(
                     builder: (context, state) {
                       return Text(
-                        '${state.formatTime()}',
+                        DateFormat(AppLocalizations.of(context)!.time_format).format(state.dateTime),
                         textScaleFactor: 1.5,
                         style: TextStyle(
                             fontWeight: FontWeight.bold
@@ -155,10 +156,10 @@ class _HomePageState extends State<HomePage> {
 
                                   if (state.gameStatus == GameStatus.failed || state.gameStatus == GameStatus.success) {
 
-                                    String message = MyLocalizations.instanceLocalization['congratulations'];
+                                    String message = AppLocalizations.of(context)!.congratulations;
                                     IconData iconData = FontAwesome5.hand_peace;
                                     if (state.gameStatus == GameStatus.failed) {
-                                      message = MyLocalizations.instanceLocalization['game_over'];
+                                      message = AppLocalizations.of(context)!.gameOver;
                                       iconData = FontAwesome5.sad_cry;
                                     }
 
@@ -167,18 +168,18 @@ class _HomePageState extends State<HomePage> {
                                   else if (state.gameStatus == GameStatus.greater || state.gameStatus == GameStatus.smaller) {
 
                                     IconData iconData = FontAwesome.up_circled;
-                                    String message = MyLocalizations.instanceLocalization['greater'];
+                                    String message = AppLocalizations.of(context)!.greater;
 
                                     if (state.gameStatus == GameStatus.smaller) {
                                       iconData = FontAwesome.down_circled;
-                                      message = MyLocalizations.instanceLocalization['smaller'];
+                                      message = AppLocalizations.of(context)!.smaller;
                                     }
 
                                     return GameStatusMessage(iconData, message);
                                   }
 
                                   return Text(
-                                    MyLocalizations.instanceLocalization['what_is_hidden_number'],
+                                    AppLocalizations.of(context)!.whatIsHiddenNumber,
                                     textScaleFactor: 2,
                                     textAlign: TextAlign.center,
                                   );
@@ -226,8 +227,8 @@ class _HomePageState extends State<HomePage> {
                     width: MediaQuery.of(context).size.width * 0.3,
                     child: ButtonApp(
                         (! (state.gameStatus == GameStatus.success || state.gameStatus == GameStatus.failed))?
-                        MyLocalizations.instanceLocalization['ok']:
-                        MyLocalizations.instanceLocalization['replay'],
+                        AppLocalizations.of(context)!.ok:
+                        AppLocalizations.of(context)!.replay,
                             () {
                           if (! (state.gameStatus == GameStatus.success || state.gameStatus == GameStatus.failed)) {
                             context.read<GameCubit>().checkNumber(numberEditingController.text);

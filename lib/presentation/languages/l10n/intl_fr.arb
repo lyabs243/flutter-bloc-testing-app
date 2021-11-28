@@ -1,0 +1,38 @@
+{
+  "@@locale": "fr",
+  "appTitle": "ML Game @{author}",
+  "@appTitle": {
+    "placeholders": {
+      "author": {
+        "type": "String"
+      }
+    }
+  },
+  "whatIsHiddenNumber": "Quel est le nombre caché ?",
+  "ok": "OK",
+  "failedGetWeather": "Impossible de charger la température",
+  "tryAgain": "Reessayer",
+  "greater": "Plus Grand",
+  "smaller": "Plus Petit",
+  "congratulations": "Felicitations",
+  "gameOver": "Jeu Terminé",
+  "replay": "Rejouer",
+  "settings": "Paramètres",
+  "darkMode": "Mode Sombre",
+  "language": "Langue",
+  "english": "Anglais",
+  "french": "Français",
+  "needLocalizationMessage": "Cette application a besoin de votre localisation pour vous fournir la température.",
+  "time": "oh {hour} Hell",
+  "@time": {
+    "placeholders": {
+      "hour": {
+        "type": "DateTime",
+        "format": "H:mm:ss",
+        "example": "4:12:33",
+        "isCustomDateFormat": "true"
+      }
+    }
+  },
+  "time_format": "H:mm:ss"
+}
