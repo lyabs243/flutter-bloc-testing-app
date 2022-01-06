@@ -1,6 +1,5 @@
 import 'package:weather/weather.dart';
-
-import '../../constants/constants.dart';
+import '../../utils/constants.dart';
 
 class WeatherAPI {
 

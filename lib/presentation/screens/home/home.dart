@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_structure/constants/constants.dart';
-import 'package:flutter_structure/constants/enums.dart';
+import 'package:flutter_structure/utils/constants.dart';
+import 'package:flutter_structure/utils/enums.dart';
 import 'package:flutter_structure/logic/cubits/game_cubit.dart';
 import 'package:flutter_structure/logic/cubits/time_cubit.dart';
 import 'package:flutter_structure/logic/cubits/weather_cubit.dart';

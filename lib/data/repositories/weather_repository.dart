@@ -1,4 +1,4 @@
-import 'package:flutter_structure/constants/constants.dart';
+import 'package:flutter_structure/utils/constants.dart';
 import 'package:flutter_structure/data/models/weather_item.dart';
 import 'package:flutter_structure/data/providers/weather_api.dart';
 

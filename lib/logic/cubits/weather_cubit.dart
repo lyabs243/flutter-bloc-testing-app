@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_structure/constants/enums.dart';
+import 'package:flutter_structure/utils/enums.dart';
 import 'package:flutter_structure/data/models/weather_item.dart';
 import 'package:flutter_structure/data/repositories/weather_repository.dart';
 import 'package:flutter_structure/logic/states/weather_state.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 
-import '../../constants/utils.dart';
+import '../../utils/methods.dart';
 
 class WeatherCubit extends Cubit<WeatherState> {
 
