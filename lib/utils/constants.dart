@@ -1,7 +1,7 @@
 import 'my_material.dart';
 
 const langCodeDefault = 'en';
-const supportedLanguages = ['en'];
+const supportedLanguages = ['en', 'fr'];
 
 /// PAGES
 const pageHome = '/';

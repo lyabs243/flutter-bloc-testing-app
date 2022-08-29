@@ -43,17 +43,13 @@ class _SettingsPageState extends State<SettingsPage> {
                       AppLocalizations.of(context)!.darkMode
                     ),
                     onTap: () {
-                      SettingsItem settingsItem = context.read<SettingsCubit>().state.settings;
-                      settingsItem.isDarkMode = !settingsItem.isDarkMode;
-                      context.read<SettingsCubit>().setSettings(settingsItem);
+                      context.read<SettingsCubit>().toggleDarkMode();
                     },
                   ),
                   trailing: Switch(
                       value: state.settings.isDarkMode,
                       onChanged: (val) {
-                        SettingsItem settingsItem = context.read<SettingsCubit>().state.settings;
-                        settingsItem.isDarkMode = !settingsItem.isDarkMode;
-                        context.read<SettingsCubit>().setSettings(settingsItem);
+                        context.read<SettingsCubit>().toggleDarkMode();
                       }
                   ),
                 ),
@@ -75,9 +71,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       ),
                       value: state.settings.langCode,
                       onChanged: (lang) {
-                        SettingsItem settingsItem = context.read<SettingsCubit>().state.settings;
-                        settingsItem.langCode = lang!;
-                        context.read<SettingsCubit>().setSettings(settingsItem);
+                        context.read<SettingsCubit>().setLanguage(lang!);
                       }
                   ),
                 )

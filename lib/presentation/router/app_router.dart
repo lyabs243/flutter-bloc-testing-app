@@ -1,4 +1,5 @@
 import 'package:flutter_structure/presentation/router/no_animation_route.dart';
+import 'package:flutter_structure/presentation/screens/settings_page/settings_page.dart';
 import 'package:flutter_structure/utils/my_material.dart';
 
 class AppRouter {
@@ -10,6 +11,9 @@ class AppRouter {
     switch (settings.name) {
       case pageHome:
         page = const HomePage();
+        break;
+      case pageSettings:
+        page = const SettingsPage();
         break;
       default:
     }

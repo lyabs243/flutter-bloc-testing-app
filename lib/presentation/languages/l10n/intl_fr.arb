@@ -1,13 +1,6 @@
 {
   "@@locale": "fr",
-  "appTitle": "ML Game @{author}",
-  "@appTitle": {
-    "placeholders": {
-      "author": {
-        "type": "String"
-      }
-    }
-  },
+  "appTitle": "ML Game",
   "whatIsHiddenNumber": "Quel est le nombre caché ?",
   "ok": "OK",
   "failedGetWeather": "Impossible de charger la température",
