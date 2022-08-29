@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_structure/data/models/settings_item.dart';
 import 'package:flutter_structure/data/repositories/settings_repository.dart';
 import 'package:flutter_structure/logic/cubits/app_cubit.dart';
+import 'package:flutter_structure/logic/cubits/game_cubit.dart';
 import 'package:flutter_structure/logic/cubits/settings_cubit.dart';
+import 'package:flutter_structure/logic/cubits/time_cubit.dart';
+import 'package:flutter_structure/logic/cubits/weather_cubit.dart';
 import 'package:flutter_structure/logic/states/app_state.dart';
 import 'package:flutter_structure/logic/states/settings_state.dart';
 import 'package:flutter_structure/presentation/router/app_router.dart';
@@ -37,6 +40,12 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<AppCubit>(
           create: (context) => AppCubit(AppState())
+        ),
+        BlocProvider<TimeCubit>(
+          create: (context) => TimeCubit(),
+        ),
+        BlocProvider<GameCubit>(
+          create: (context) => GameCubit(),
         ),
       ],
       child: BlocBuilder<SettingsCubit, SettingsState>(

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_structure/data/models/weather_item.dart';
 import 'package:flutter_structure/utils/my_material.dart';
 import 'package:weather/weather.dart';

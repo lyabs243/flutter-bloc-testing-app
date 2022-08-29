@@ -5,6 +5,7 @@ const supportedLanguages = ['en'];
 
 /// PAGES
 const pageHome = '/';
+const pageSettings = '/settings';
 
 const fieldStatusCode = 'status_code';
 
