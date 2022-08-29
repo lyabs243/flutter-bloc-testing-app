@@ -1,5 +1,7 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_structure/data/models/weather_item.dart';
+import 'package:flutter_structure/utils/my_material.dart';
 import 'package:weather/weather.dart';
-import '../../utils/constants.dart';
 
 class WeatherAPI {
 
@@ -11,17 +13,17 @@ class WeatherAPI {
     Weather? weather;
 
     try {
-      WeatherFactory? wf = WeatherFactory(OPEN_WEATHER_API_KEY);
+      WeatherFactory? wf = WeatherFactory(openWeatherAPIKey);
       weather = await wf.currentWeatherByLocation(latitude, longitude);
     }
     catch(err) {
-      print('===Error getting weather');
+      debugPrint('===Error getting weather');
     }
 
     if (weather != null) {
       return {
-        FIELD_TEMPERATURE_CELCIUS: weather.temperature!.celsius,
-        FIELD_ICON: 'http://openweathermap.org/img/w/${weather.weatherIcon}.png'
+        fieldTemperatureCelcius: weather.temperature!.celsius,
+        fieldIcon: 'http://openweathermap.org/img/w/${weather.weatherIcon}.png'
       };
     }
 

@@ -28,7 +28,7 @@ class WeatherCubit extends Cubit<WeatherState> {
       city = await _getCity(position);
     }
     catch(e) {
-      print('===Error get weather from cubit: $e');
+      debugPrint('===Error get weather from cubit: $e');
     }
 
     if (city == null) {
@@ -54,12 +54,12 @@ class WeatherCubit extends Cubit<WeatherState> {
     String? city;
     try {
       List<Placemark>? placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
-      if (placemarks.length > 0) {
+      if (placemarks.isNotEmpty) {
         city = placemarks.first.locality;
       }
     }
     catch(e) {
-      print('===Error get Placemarks: $e');
+      debugPrint('===Error get Placemarks: $e');
     }
 
     return city;

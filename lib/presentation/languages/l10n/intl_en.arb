@@ -1,13 +1,6 @@
 {
   "@@locale": "en",
-  "appTitle": "ML Game @{author}",
-  "@appTitle": {
-    "placeholders": {
-      "author": {
-        "type": "String"
-      }
-    }
-  },
+  "appTitle": "ML Game",
   "whatIsHiddenNumber": "What is the hidden number?",
   "ok": "OK",
   "failedGetWeather": "Failed to get weather",
@@ -34,5 +27,13 @@
       }
     }
   },
-  "time_format": "h:mm:ss a"
+  "timeFormat": "h:mm:ss a",
+  "errorOccurred": "Error Occurred",
+  "somethingWentWrong": "Something went wrong",
+  "warning": "Warning",
+  "error": "Error",
+  "success": "Success",
+  "info_": "Info",
+  "confirm": "Confirm",
+  "done": "Done"
 }

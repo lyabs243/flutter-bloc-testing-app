@@ -7,15 +7,14 @@ class ButtonApp extends StatelessWidget {
   final FontWeight? textFontWeight;
   final double padding, borderRadius, height;
 
-  ButtonApp(this.text, this.onPressed,
-      {this.padding: 0.0,
-      this.borderRadius: 15,
+  const ButtonApp(this.text, this.onPressed,
+      {Key? key, this.padding = 0.0,
+      this.borderRadius = 15,
       this.textFontWeight,
-      this.height: 50});
+      this.height = 50}): super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).primaryColor,
@@ -24,13 +23,13 @@ class ButtonApp extends StatelessWidget {
       height: height,
       child: Material(
         borderRadius: BorderRadius.circular(40),
+        color: Colors.transparent,
         child: InkWell(
           onTap: () {
-            this.onPressed();
+            onPressed();
           },
           child: Container(
-              padding:
-                  EdgeInsets.symmetric(horizontal: padding, vertical: padding),
+              padding: EdgeInsets.symmetric(horizontal: padding, vertical: padding),
               child: Center(
                 child: Text(
                   text,
@@ -40,9 +39,9 @@ class ButtonApp extends StatelessWidget {
                   ),
                   textAlign: TextAlign.center,
                 ),
-              )),
+              )
+          ),
         ),
-        color: Colors.transparent,
       ),
     );
   }

@@ -1,21 +1,9 @@
-import 'package:flutter_structure/utils/constants.dart';
+import 'package:flutter_structure/data/models/settings_item.dart';
 
 class SettingsState {
 
-  bool isDarkMode;
-  String language;
+  SettingsItem settings;
 
-  SettingsState({this.isDarkMode: false, this.language: LANG_CODE});
-
-  Map<String, dynamic> toMap() {
-    return {
-      FIELD_IS_DARK_MODE: isDarkMode,
-      FIELD_LANGUAGE: language,
-    };
-  }
-
-  static SettingsState fromMap(Map<String, dynamic> map) {
-    return SettingsState(isDarkMode: map[FIELD_IS_DARK_MODE], language: map[FIELD_LANGUAGE]);
-  }
+  SettingsState(this.settings,);
 
 }

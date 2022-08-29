@@ -1,7 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class GameLoading extends StatelessWidget {
+
+  const GameLoading({Key? key}): super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -9,8 +10,8 @@ class GameLoading extends StatelessWidget {
       child: Container(
         alignment: Alignment.center,
         child: Transform.scale(
-          child: CircularProgressIndicator(),
           scale: 2,
+          child: const CircularProgressIndicator(),
         ),
       )
     );

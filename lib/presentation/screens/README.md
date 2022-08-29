@@ -1,4 +1,4 @@
 /lib/screens/
 ===============
 
-This folder contains all scrrens of application (Home, About,...)
+This folder contains all screens of application (Home, About,...)

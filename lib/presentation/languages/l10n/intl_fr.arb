@@ -34,5 +34,13 @@
       }
     }
   },
-  "time_format": "H:mm:ss"
+  "timeFormat": "H:mm:ss",
+  "errorOccurred": "Une erreur s'est produite",
+  "somethingWentWrong": "Quelque chose s'est mal passé",
+  "warning": "Attention",
+  "error": "Erreur",
+  "success": "Succès",
+  "info_": "Info",
+  "confirm": "Confirmation",
+  "done": "Fait"
 }

@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 
 class PageBody extends StatelessWidget {
 
-  String title;
-  List<Widget> actions;
-  Widget child;
+  final String title;
+  final List<Widget> actions;
+  final Widget child;
 
-  PageBody({required this.title, required this.child, this.actions: const []});
+  const PageBody({Key? key, required this.title, required this.child, this.actions = const []}):
+    super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +22,11 @@ class PageBody extends StatelessWidget {
       appBar: appBar,
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.all(12),
+          padding: const EdgeInsets.all(12),
           color: Theme.of(context).scaffoldBackgroundColor,
           height: MediaQuery.of(context).size.height - appBar.preferredSize.height - 24,
           width: MediaQuery.of(context).size.width,
-          child: this.child,
+          child: child,
         ),
       ),
     );

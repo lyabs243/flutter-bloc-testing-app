@@ -6,7 +6,7 @@ import 'dart:math';
 
 class GameCubit extends Cubit<GameState> {
 
-  final _random = new Random();
+  final _random = Random();
 
   GameCubit() : super(GameState()) {
     initHiddenNumber();
@@ -14,7 +14,7 @@ class GameCubit extends Cubit<GameState> {
 
   initHiddenNumber() {
     emit(GameState(gameStatus: GameStatus.loading));
-    int hiddenNumber = MIN_GAME_NUMBER + _random.nextInt(MAX_GAME_NUMBER - MIN_GAME_NUMBER);
+    int hiddenNumber = minGameNumber + _random.nextInt(maxGAMENumber - minGameNumber);
     emit(GameState(gameStatus: GameStatus.playing, hiddenNumber: hiddenNumber));
   }
 
@@ -26,28 +26,30 @@ class GameCubit extends Cubit<GameState> {
       try {
         number = int.parse(textNumber);
       }
-      catch(e) {}
+      catch(e) {
+        //
+      }
 
-      GameStatus _gameStatus;
+      GameStatus gameStatus;
       int lives = state.lives;
       if (number > state.hiddenNumber) {
-        _gameStatus = GameStatus.smaller;
+        gameStatus = GameStatus.smaller;
         lives--;
       }
       else if (number < state.hiddenNumber) {
-        _gameStatus = GameStatus.greater;
+        gameStatus = GameStatus.greater;
         lives--;
       }
       else {
-        _gameStatus = GameStatus.success;
+        gameStatus = GameStatus.success;
       }
 
       //if user lives, finishes, game over
       if (lives <= 0) {
-        _gameStatus = GameStatus.failed;
+        gameStatus = GameStatus.failed;
       }
 
-      emit(GameState(gameStatus: _gameStatus, hiddenNumber: state.hiddenNumber, lives: lives));
+      emit(GameState(gameStatus: gameStatus, hiddenNumber: state.hiddenNumber, lives: lives));
     }
   }
 

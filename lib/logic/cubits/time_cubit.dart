@@ -7,7 +7,7 @@ class TimeCubit extends Cubit<TimeState> {
   Timer? timer;
 
   TimeCubit() : super(TimeState(DateTime.now())) {
-    timer = Timer.periodic(Duration(seconds: 1), (Timer t) => emit(TimeState(DateTime.now())));
+    timer = Timer.periodic(const Duration(seconds: 1), (Timer t) => emit(TimeState(DateTime.now())));
   }
 
   @override

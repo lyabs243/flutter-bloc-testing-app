@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_structure/data/models/settings_item.dart';
 import 'package:flutter_structure/logic/cubits/settings_cubit.dart';
 import 'package:flutter_structure/logic/states/settings_state.dart';
 import 'package:flutter_structure/presentation/components/page_body.dart';
@@ -7,6 +8,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingsPage extends StatefulWidget {
+
+  const SettingsPage({Key? key}): super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -29,52 +32,56 @@ class _SettingsPageState extends State<SettingsPage> {
       builder: (context, state) {
         return PageBody(
             title: AppLocalizations.of(context)!.settings,
-            child: Container(
-              child: Column(
-                children: [
-                  ListTile(
-                    leading: Icon(
-                        FontAwesome5.moon
-                    ),
-                    title: InkWell(
-                      child: Text(
-                          AppLocalizations.of(context)!.darkMode
-                      ),
-                      onTap: () {
-                        context.read<SettingsCubit>().setDarkMode(! state.isDarkMode);
-                      },
-                    ),
-                    trailing: Switch(
-                        value: state.isDarkMode,
-                        onChanged: (val) {
-                          context.read<SettingsCubit>().setDarkMode(! state.isDarkMode);
-                        }
-                    ),
+            child: Column(
+              children: [
+                ListTile(
+                  leading: const Icon(
+                    FontAwesome5.moon
                   ),
-                  Divider(height: 5, color: Colors.grey,),
-                  ListTile(
-                    leading: Icon(
-                        FontAwesome5.language
+                  title: InkWell(
+                    child: Text(
+                      AppLocalizations.of(context)!.darkMode
                     ),
-                    title: Text(
-                        AppLocalizations.of(context)!.language
-                    ),
-                    trailing: DropdownButton<String>(
-                        items: List.generate(
-                            languages.length,
-                                (index) => DropdownMenuItem(
-                              child: Text(languages[index]['title'].toString()),
-                              value: languages[index]['code'],
-                            )
-                        ),
-                        value: state.language,
-                        onChanged: (lang) {
-                          context.read<SettingsCubit>().setLanguage(lang.toString());
-                        }
-                    ),
-                  )
-                ],
-              ),
+                    onTap: () {
+                      SettingsItem settingsItem = context.read<SettingsCubit>().state.settings;
+                      settingsItem.isDarkMode = !settingsItem.isDarkMode;
+                      context.read<SettingsCubit>().setSettings(settingsItem);
+                    },
+                  ),
+                  trailing: Switch(
+                      value: state.settings.isDarkMode,
+                      onChanged: (val) {
+                        SettingsItem settingsItem = context.read<SettingsCubit>().state.settings;
+                        settingsItem.isDarkMode = !settingsItem.isDarkMode;
+                        context.read<SettingsCubit>().setSettings(settingsItem);
+                      }
+                  ),
+                ),
+                const Divider(height: 5, color: Colors.grey,),
+                ListTile(
+                  leading: const Icon(
+                    FontAwesome5.language
+                  ),
+                  title: Text(
+                      AppLocalizations.of(context)!.language
+                  ),
+                  trailing: DropdownButton<String>(
+                      items: List.generate(
+                          languages.length,
+                          (index) => DropdownMenuItem(
+                            value: languages[index]['code'],
+                            child: Text(languages[index]['title'].toString()),
+                          )
+                      ),
+                      value: state.settings.langCode,
+                      onChanged: (lang) {
+                        SettingsItem settingsItem = context.read<SettingsCubit>().state.settings;
+                        settingsItem.langCode = lang!;
+                        context.read<SettingsCubit>().setSettings(settingsItem);
+                      }
+                  ),
+                )
+              ],
             )
         );
       }

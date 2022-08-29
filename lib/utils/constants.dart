@@ -1,22 +1,45 @@
-const LANG_CODE = 'en';
+import 'my_material.dart';
 
-List<String> languages = ['en', 'fr'];
+const langCodeDefault = 'en';
+const supportedLanguages = ['en'];
 
-const MIN_GAME_NUMBER = 1;
-const MAX_GAME_NUMBER = 50;
-const TOTAL_LIVES = 5;
+/// PAGES
+const pageHome = '/';
 
-/// Pages routes
-const PAGE_SETTINGS = '/settings';
-const PAGE_HOME = '/';
+const fieldStatusCode = 'status_code';
 
-/// Fields
-const FIELD_TEMPERATURE_CELCIUS = 'temperature_celcius';
-const FIELD_CITY = 'city';
-const FIELD_ICON = 'icon';
-
-const FIELD_IS_DARK_MODE = 'is_dark_mode';
-const FIELD_LANGUAGE = 'language';
+//SHARED PREFERENCES
+const prefSettings = 'settings';
 
 /// keys
-const OPEN_WEATHER_API_KEY = 'c1f16b830a85be3b527ac4b41803fda9';
+const openWeatherAPIKey = 'c1f16b830a85be3b527ac4b41803fda9';
+
+/// PAGES ARGUMENTS
+const argumentId = 'id';
+const argumentIsNOAnimation = 'is_no_animation';
+
+const minGameNumber = 1;
+const maxGAMENumber = 50;
+const totalLives = 5;
+
+/// SETTINGS FIELD
+const settingIsDarkMode = 'is_dark_mode';
+const settingLanguage = 'language';
+
+/// COLORS
+const int colorHex = 0XFFD4946C;
+
+const Color colorPrimary = Color(colorHex);
+const Color colorBlack = Color(0XFF130B07);
+const Color colorWhite = Color(0XFFFFFFFF);
+
+/// FONTS SIZE
+const textSizeSmall = 12.0;
+const textSizeSMedium = 14.0;
+const textSizeMedium = 17.0;
+const textSizeLargeMedium = 20.0;
+const textSizeNormal = 24.0;
+const textSizeLarge = 30.0;
+const textSizeXLarge = 35.0;
+const textSizeXXLarge = 45.0;
+const textSizeXXXLarge = 52.0;

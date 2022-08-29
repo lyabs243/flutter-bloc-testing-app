@@ -1,21 +1,28 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_structure/utils/constants.dart';
-import 'package:flutter_structure/presentation/screens/home/home.dart';
-import 'package:flutter_structure/presentation/screens/settings_page/settings_page.dart';
+import 'package:flutter_structure/presentation/router/no_animation_route.dart';
+import 'package:flutter_structure/utils/my_material.dart';
 
 class AppRouter {
   Route? onGenerateRoute(RouteSettings settings) {
+
+    Map<String, dynamic>? arguments = settings.arguments as Map<String, dynamic>?;
+    Widget? page;
+
     switch (settings.name) {
-      case PAGE_HOME:
-        return MaterialPageRoute(
-          builder: (_) => HomePage()
-        );
-      case PAGE_SETTINGS:
-        return MaterialPageRoute(
-          builder: (_) => SettingsPage()
-        );
+      case pageHome:
+        page = const HomePage();
+        break;
       default:
-        return null;
     }
+
+    if (page != null) {
+
+      if (arguments != null && arguments[argumentIsNOAnimation]) {
+        return NoAnimationMaterialPageRoute(builder: (_) => page!);
+      }
+
+      return MaterialPageRoute(builder: (_) => page!);
+    }
+
+    return null;
   }
 }

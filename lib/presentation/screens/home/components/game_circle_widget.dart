@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class GameCircleWidget extends StatelessWidget {
 
-  String text;
+  final String text;
 
-  GameCircleWidget(this.text);
+  const GameCircleWidget(this.text, {Key? key}): super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class GameCircleWidget extends StatelessWidget {
         child: Text(
           text,
           textScaleFactor: 5 / text.length,
-          style: TextStyle(
+          style: const TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.bold
           ),

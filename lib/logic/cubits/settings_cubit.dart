@@ -1,27 +1,20 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_structure/data/models/settings_item.dart';
+import 'package:flutter_structure/data/repositories/settings_repository.dart';
 import 'package:flutter_structure/logic/states/settings_state.dart';
-import 'package:hydrated_bloc/hydrated_bloc.dart';
 
-class SettingsCubit extends Cubit<SettingsState> with HydratedMixin {
+class SettingsCubit extends Cubit<SettingsState> {
 
-  SettingsCubit() : super(SettingsState());
+  SettingsCubit(SettingsState initialState) : super(initialState);
 
-  setDarkMode(bool _isDark) {
-    emit(SettingsState(isDarkMode: _isDark, language: state.language));
+  getSettings() async {
+    SettingsItem settings = await SettingsRepository().getSettings();
+    emit(SettingsState(settings,));
   }
 
-  setLanguage(String _language) {
-    emit(SettingsState(isDarkMode: state.isDarkMode, language: _language));
-  }
-
-  @override
-  SettingsState? fromJson(Map<String, dynamic> json) {
-    return SettingsState.fromMap(json);
-  }
-
-  @override
-  Map<String, dynamic>? toJson(SettingsState state) {
-    return state.toMap();
+  setSettings(SettingsItem settingsItem) async {
+    await SettingsRepository().setSettings(settingsItem);
+    emit(SettingsState(settingsItem,));
   }
 
 }

@@ -27,7 +27,7 @@ Future<Position> getCurrentLocation(BuildContext context) async {
             actions: [
               TextButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  child: Text('OK')
+                  child: Text(AppLocalizations.of(context)!.ok.toUpperCase())
               )
             ],
           );
