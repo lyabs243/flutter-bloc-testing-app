@@ -13,12 +13,13 @@ class WeatherCubit extends Cubit<WeatherState> {
 
   BuildContext context;
 
-  WeatherCubit(this.context) : super(WeatherState(customState: CustomState.loading)) {
+  WeatherCubit(this.context) : super(WeatherState()) {
     getWeather();
   }
 
   getWeather() async {
-    emit(WeatherState(customState: CustomState.loading));
+    state.isLoading = true;
+    emit(state.copy());
 
     String? city;
     Position? position;
@@ -32,30 +33,26 @@ class WeatherCubit extends Cubit<WeatherState> {
     }
 
     if (city == null) {
-      emit(WeatherState(customState: CustomState.error));
+      state.isLoading = false;
     }
     else {
 
       WeatherRepository weatherRepository = WeatherRepository(city, position!.latitude, position.longitude);
       WeatherItem? weatherItem = await weatherRepository.getFromLocation();
 
-      if (weatherItem == null) {
-        emit(WeatherState(customState: CustomState.error));
-      }
-      else {
-        WeatherState weatherState = WeatherState(customState: CustomState.done);
-        weatherState.weatherItem = weatherItem;
-        emit(weatherState);
-      }
+      state.isLoading = false;
+      state.weatherItem = weatherItem;
     }
+
+    emit(state.copy());
   }
 
   Future<String?> _getCity(Position position) async {
     String? city;
     try {
-      List<Placemark>? placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
-      if (placemarks.isNotEmpty) {
-        city = placemarks.first.locality;
+      List<Placemark>? placeMarks = await placemarkFromCoordinates(position.latitude, position.longitude);
+      if (placeMarks.isNotEmpty) {
+        city = placeMarks.first.locality;
       }
     }
     catch(e) {

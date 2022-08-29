@@ -3,9 +3,15 @@ import 'package:flutter_structure/data/models/weather_item.dart';
 
 class WeatherState {
 
-  CustomState customState;
+  bool isLoading;
   WeatherItem? weatherItem;
 
-  WeatherState({required this.customState});
+  WeatherState({this.isLoading = true, this.weatherItem});
+
+  WeatherState copy() {
+    WeatherState copy = WeatherState(isLoading: isLoading, weatherItem: weatherItem);
+
+    return copy;
+  }
 
 }

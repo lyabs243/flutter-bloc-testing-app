@@ -106,16 +106,17 @@ class HomePageState extends State<HomePage> {
                   BlocBuilder<WeatherCubit, WeatherState>(
                       builder: (context, state) {
 
-                        if (state.customState == CustomState.loading) {
+                        if (state.isLoading) {
                           return const Center(
                             child: CircularProgressIndicator(),
                           );
                         }
-                        else if (state.customState == CustomState.error) {
+
+                        if (state.weatherItem == null) {
                           return WeatherErrorWidget(
-                                  () {
-                                context.read<WeatherCubit>().getWeather();
-                              }
+                            () {
+                              context.read<WeatherCubit>().getWeather();
+                            }
                           );
                         }
 
