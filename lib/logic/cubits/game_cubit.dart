@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_structure/utils/constants.dart';
-import 'package:flutter_structure/utils/enums.dart';
+import 'package:flutter_structure/logic/responses/game_response.dart';
 import 'package:flutter_structure/logic/states/game_state.dart';
 import 'dart:math';
+import 'package:flutter_structure/utils/my_material.dart';
 
 class GameCubit extends Cubit<GameState> {
 
@@ -12,44 +12,61 @@ class GameCubit extends Cubit<GameState> {
     initHiddenNumber();
   }
 
-  initHiddenNumber() {
-    emit(GameState(gameStatus: GameStatus.loading));
-    int hiddenNumber = minGameNumber + _random.nextInt(maxGAMENumber - minGameNumber);
-    emit(GameState(gameStatus: GameStatus.playing, hiddenNumber: hiddenNumber));
+  showMessage(GameResponseCode code, {messageType = MessageType.dialog}) async {
+    state.isLoading = false;
+    state.response = GameResponse(
+      code: code,
+      messageType: messageType,
+    );
+    emit(state.copy());
   }
 
-  checkNumber(String textNumber) {
-    if (textNumber.isNotEmpty) {
-      emit(GameState(gameStatus: GameStatus.loading, hiddenNumber: state.hiddenNumber, lives: state.lives));
+  initHiddenNumber() {
+    state.isLoading = true;
+    state.response = null;
+    state.lives = totalLives;
+    state.numberEditingController.clear();
+    emit(state.copy());
+
+    state.hiddenNumber = minGameNumber + _random.nextInt(maxGAMENumber - minGameNumber);
+
+    state.isLoading = false;
+    emit(state.copy());
+  }
+
+  checkNumber() {
+    String textNumber = state.numberEditingController.text;
+    if (textNumber.isNotEmpty && ! (state.response?.code == GameResponseCode.success || state.response?.code == GameResponseCode.failed)) {
+      state.isLoading = true;
+      emit(state.copy());
 
       int number = -1;
       try {
         number = int.parse(textNumber);
       }
       catch(e) {
-        //
+        debugPrint('=============Failed to parse number: $e');
       }
 
-      GameStatus gameStatus;
-      int lives = state.lives;
+      GameResponseCode code;
       if (number > state.hiddenNumber) {
-        gameStatus = GameStatus.smaller;
-        lives--;
+        code = GameResponseCode.smaller;
+        state.lives--;
       }
       else if (number < state.hiddenNumber) {
-        gameStatus = GameStatus.greater;
-        lives--;
+        code = GameResponseCode.greater;
+        state.lives--;
       }
       else {
-        gameStatus = GameStatus.success;
+        code = GameResponseCode.success;
       }
 
       //if user lives, finishes, game over
-      if (lives <= 0) {
-        gameStatus = GameStatus.failed;
+      if (state.lives <= 0) {
+        code = GameResponseCode.failed;
       }
 
-      emit(GameState(gameStatus: gameStatus, hiddenNumber: state.hiddenNumber, lives: lives));
+      showMessage(code, messageType: MessageType.dialog);
     }
   }
 

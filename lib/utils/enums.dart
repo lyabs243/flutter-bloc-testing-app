@@ -12,15 +12,6 @@ enum HttpMethod {
   delete
 }
 
-enum GameStatus {
-  loading,
-  playing,
-  failed,
-  success,
-  greater,
-  smaller
-}
-
 enum MessageType {
   dialog,
   toast,

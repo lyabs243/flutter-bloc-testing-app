@@ -10,6 +10,7 @@ class EditText extends StatelessWidget {
   final TextEditingController? controller;
   final TextInputType inputType;
   final Function? onTextChange;
+  final void Function(String text)? onSubmitted;
   final Widget? prefixIcon, suffixIcon;
   final Color? color;
   final TextAlign textAlign;
@@ -18,7 +19,8 @@ class EditText extends StatelessWidget {
 
   const EditText(this.hintText, {Key? key, this.isPassword = false, this.hintStyle, this.labelStyle, this.contentPadding , this.labelText, this.controller,
     this.inputType = TextInputType.text, this.onTextChange, this.prefixIcon, this.suffixIcon, this.color, this.textAlign = TextAlign.start,
-    this.style, this.showCursor = true, this.enabled = true, this.maxLines = 1, this.focusNode}) :
+    this.style, this.showCursor = true, this.enabled = true, this.maxLines = 1, this.focusNode,
+    this.onSubmitted}) :
   super(key: key);
 
   @override
@@ -26,7 +28,6 @@ class EditText extends StatelessWidget {
     return Padding(
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
         child: TextFormField(
-
           obscureText: isPassword,
           controller: controller,
           keyboardType: inputType,
@@ -44,6 +45,7 @@ class EditText extends StatelessWidget {
               onTextChange!(value);
             }
           },
+          onFieldSubmitted: onSubmitted,
           decoration: InputDecoration(
             contentPadding: contentPadding,
             hintText: hintText,

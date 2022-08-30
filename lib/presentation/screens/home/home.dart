@@ -3,6 +3,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_structure/logic/cubits/game_cubit.dart';
 import 'package:flutter_structure/logic/cubits/time_cubit.dart';
 import 'package:flutter_structure/logic/cubits/weather_cubit.dart';
+import 'package:flutter_structure/logic/responses/game_response.dart';
 import 'package:flutter_structure/logic/states/game_state.dart';
 import 'package:flutter_structure/logic/states/time_state.dart';
 import 'package:flutter_structure/logic/states/weather_state.dart';
@@ -32,8 +33,6 @@ class HomePage extends StatefulWidget {
 
 class HomePageState extends State<HomePage> {
 
-  TextEditingController numberEditingController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider<WeatherCubit>(
@@ -61,7 +60,7 @@ class HomePageState extends State<HomePage> {
                     builder: (context, state) {
 
                       return Visibility(
-                        visible: ! (state.gameStatus == GameStatus.loading),
+                        visible: ! state.isLoading,
                         child: RatingBar(
                           direction: Axis.horizontal,
                           ignoreGestures: true,
@@ -128,17 +127,13 @@ class HomePageState extends State<HomePage> {
                   BlocBuilder<GameCubit, GameState>(
                       builder: (context, state) {
 
-                        if (state.gameStatus == GameStatus.loading) {
+                        if (state.isLoading) {
                           return const GameLoading();
                         }
 
                         return Column(
                           children: [
-                            GameCircleWidget(
-                                (! (context.read<GameCubit>().state.gameStatus == GameStatus.success || context.read<GameCubit>().state.gameStatus == GameStatus.failed))?
-                                '?':
-                                '${context.read<GameCubit>().state.hiddenNumber}'
-                            ),
+                            GameCircleWidget(state.circleText),
                             const SizedBox(height: 10,),
                             Container(
                               alignment: Alignment.center,
@@ -146,28 +141,8 @@ class HomePageState extends State<HomePage> {
                               child: LayoutBuilder(
                                   builder: (context, constraints) {
 
-                                    if (state.gameStatus == GameStatus.failed || state.gameStatus == GameStatus.success) {
-
-                                      String message = AppLocalizations.of(context)!.congratulations;
-                                      IconData iconData = FontAwesome5.hand_peace;
-                                      if (state.gameStatus == GameStatus.failed) {
-                                        message = AppLocalizations.of(context)!.gameOver;
-                                        iconData = FontAwesome5.sad_cry;
-                                      }
-
-                                      return GameStatusMessage(iconData, message, textColor: Theme.of(context).primaryColor,);
-                                    }
-                                    else if (state.gameStatus == GameStatus.greater || state.gameStatus == GameStatus.smaller) {
-
-                                      IconData iconData = FontAwesome.up_circled;
-                                      String message = AppLocalizations.of(context)!.greater;
-
-                                      if (state.gameStatus == GameStatus.smaller) {
-                                        iconData = FontAwesome.down_circled;
-                                        message = AppLocalizations.of(context)!.smaller;
-                                      }
-
-                                      return GameStatusMessage(iconData, message);
+                                    if (state.response != null) {
+                                      return GameStatusMessage(state.response!.icon, state.response!.message(context));
                                     }
 
                                     return Text(
@@ -184,7 +159,8 @@ class HomePageState extends State<HomePage> {
                               width: MediaQuery.of(context).size.width * 0.6,
                               child: EditText(
                                   '',
-                                  controller: numberEditingController,
+                                  onSubmitted: (text) => context.read<GameCubit>().checkNumber(),
+                                  controller: state.numberEditingController,
                                   hintStyle: const TextStyle(
                                       color: Colors.black,
                                       fontSize: 28,
@@ -207,19 +183,17 @@ class HomePageState extends State<HomePage> {
                   BlocBuilder<GameCubit, GameState>(
                       builder: (context, state) {
                         return Visibility(
-                          visible: ! (state.gameStatus == GameStatus.loading),
+                          visible: ! state.isLoading,
                           child: SizedBox(
                             width: MediaQuery.of(context).size.width * 0.3,
                             child: ButtonApp(
-                                (! (state.gameStatus == GameStatus.success || state.gameStatus == GameStatus.failed))?
-                                AppLocalizations.of(context)!.ok:
-                                AppLocalizations.of(context)!.replay,
-                                    () {
-                                  if (! (state.gameStatus == GameStatus.success || state.gameStatus == GameStatus.failed)) {
-                                    context.read<GameCubit>().checkNumber(numberEditingController.text);
+                                state.buttonText(context),
+                                () {
+                                  if (! (state.response?.code == GameResponseCode.success ||
+                                      state.response?.code == GameResponseCode.failed)) {
+                                    context.read<GameCubit>().checkNumber();
                                   }
                                   else {
-                                    numberEditingController.clear();
                                     context.read<WeatherCubit>().getWeather();
                                     context.read<GameCubit>().initHiddenNumber();
                                   }
