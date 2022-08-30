@@ -37,6 +37,9 @@ dependencies:
   geocoding: ^2.0.1
   weather: ^2.0.1
   path_provider: ^2.0.7
+  overlay_support: ^2.0.1
+  firebase_core: ^1.21.1
+  firebase_messaging: ^13.0.0
 
 dev_dependencies:
   flutter_test:

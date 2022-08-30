@@ -6,6 +6,7 @@ const supportedLanguages = ['en', 'fr'];
 /// PAGES
 const pageHome = '/';
 const pageSettings = '/settings';
+const pageNotification = '/notification';
 
 const fieldStatusCode = 'status_code';
 
@@ -18,6 +19,7 @@ const openWeatherAPIKey = 'c1f16b830a85be3b527ac4b41803fda9';
 /// PAGES ARGUMENTS
 const argumentId = 'id';
 const argumentIsNOAnimation = 'is_no_animation';
+const argumentMessage = 'message';
 
 const minGameNumber = 1;
 const maxGAMENumber = 50;
@@ -44,3 +46,7 @@ const textSizeLarge = 30.0;
 const textSizeXLarge = 35.0;
 const textSizeXXLarge = 45.0;
 const textSizeXXXLarge = 52.0;
+
+/// NOTIFICATIONS
+const fieldNotificationType = 'type';
+const fieldNotificationMessage = 'message';

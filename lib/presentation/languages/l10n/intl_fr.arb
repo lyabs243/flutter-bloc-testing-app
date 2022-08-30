@@ -35,5 +35,7 @@
   "success": "Succès",
   "info_": "Info",
   "confirm": "Confirmation",
-  "done": "Fait"
+  "done": "Fait",
+  "view": "Voir",
+  "notification": "Notification"
 }
