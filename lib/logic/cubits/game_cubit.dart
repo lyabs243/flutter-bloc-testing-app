@@ -13,6 +13,7 @@ class GameCubit extends Cubit<GameState> {
   }
 
   showMessage(GameResponseCode code, {messageType = MessageType.dialog}) async {
+    await Future.delayed(const Duration(milliseconds: 100));
     state.isLoading = false;
     state.response = GameResponse(
       code: code,
