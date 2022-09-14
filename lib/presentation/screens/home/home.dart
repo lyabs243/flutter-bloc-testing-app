@@ -216,6 +216,8 @@ class HomePage extends StatelessWidget {
         ResponseCodeWidget(context: context, item: state.response!).show();
       }
 
+      state.response = null;
+
     }
 
   }
