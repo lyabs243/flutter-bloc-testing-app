@@ -3,6 +3,10 @@
 A simple more / less game with weather and time feature to learn well Flutter bloc library.
 The app has following features:
 
+<blockquote>
+To run this project you must firstly generate the firebase_options.dart file which must be in lib folder of the source, all instructions are available on <a href="https://firebase.flutter.dev/docs/cli">Initialize Firebase</a>
+</blockquote>
+
 <h2>Principles</h2>
 
 A small game of plus or minus, the principle is that the application will generate a random number between 1 and 500, and the objective of the user will be to find this number through a small edit text where he will type the number and will validate it, he will have up to 5 tries, if he finds the number or his tries are over, the game will end and he can replay, if the number is greater than the one sought, the app will display smaller, if it's small, the app will display greater.
